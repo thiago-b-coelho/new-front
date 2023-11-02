@@ -1,24 +1,37 @@
-'use client';
-import React, { useState } from 'react'
+"use client";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 const LoginForm = () => {
+  const Router = useRouter();
   const [formulario, setFormulario] = useState({
-    email: '',
-    senha: ''
-  })
+    email: "",
+    senha: "",
+  });
 
-  const aoSubmeter = (e) => {
+  const aoSubmeter = async (e) => {
     e.preventDefault();
-    console.log('submeteru')
-  }
+    try {
+      const result = await axios.post(
+        "http://localhost:8080/login",
+        formulario
+      );
+      alert(result.data.message)
+      Router.push('/admin/noticias/criar')
+
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  };
 
   const aoAlterarValores = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setFormulario({
       ...formulario,
-      [name]: value
-    })
-  }
+      [name]: value,
+    });
+  };
   return (
     <form onSubmit={aoSubmeter}>
       <div>
@@ -30,8 +43,7 @@ const LoginForm = () => {
         <input type="password" name="senha" onChange={aoAlterarValores} />
       </div>
       <button type="submit">Entrar</button>
-    </form>  
-  )
-}
-
-export default LoginForm
+    </form>
+  );
+};
+export default LoginForm;
