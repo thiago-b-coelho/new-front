@@ -1,13 +1,19 @@
 'use client';
-import Image from 'next/image'
 import React from 'react'
+import './style.css'
 
-const Noticia = ({ noticia }) => {
+const Noticia = ( props ) => {
   return (
-    <div>
-      <div>{noticia.titulo}</div>
-      <img src={noticia.img} alt="noticia" width={250} height={250}/>
-      <div dangerouslySetInnerHTML={{__html: noticia.texto}}></div>
+    <div className='noticia'>
+      <div
+        className="imagem"
+        style={{ backgroundImage: `url(${props.noticia.img})` }}
+      />      
+      <div>{props.noticia.titulo}</div>
+      <div className="publicado-em">
+        {new Date(props.noticia.createdAt).toLocaleDateString("pt-BR")}
+      </div>
+      <div className='texto' dangerouslySetInnerHTML={{__html: props.noticia.texto}}></div>
       <br />
     </div>
   )

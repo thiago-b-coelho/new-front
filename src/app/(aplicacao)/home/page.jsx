@@ -19,8 +19,8 @@ const HomePage = () => {
     getNoticias();
   }, []);
   return (
-    <div>
-      <h1>home</h1>
+    <div style={{background: "#333", color: "#f3f3f3"}}>
+      <h1 style={{padding: "10px 0", textAlign:"center"}}>Home</h1>
       {noticias.map((noticia) => (
         <Noticia key={noticia.id} noticia={noticia} />
       ))}
